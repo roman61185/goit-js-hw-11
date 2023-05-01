@@ -12,8 +12,8 @@ const loadMoreBtn = new LoadMoreBtn({
     selector: '[data-action="load-more"]',
     hidden: true,
 });
-const lightbox = new SimpleLightbox('.galleryContainer a')
 
+const lightbox = new SimpleLightbox('.gallery a');
 
 searchForm.addEventListener('submit', onSubmit);
 loadMoreBtn.refs.button.addEventListener('click', fetchHits);
@@ -26,10 +26,10 @@ function onSubmit(evt) {
     if (hitsApiService.query === "") {
         return Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
     };
+    const lightbox = new SimpleLightbox('.gallery a');
 
     loadMoreBtn.show();
     fetchHits()
-
 }
 
 
@@ -47,11 +47,27 @@ const clearContainer = () => {
 }
 
 const createImages = (image) => `
-<div class="photo-card">
-    <a class="gallery-link" href="${image.largeImageURL}">
-       <img class="gallery-image" src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
-    </a>
-</div>
+      <a class="slide-wrapper" href="${image.largeImageURL}">
+        <div class="photo-card">
+          <div class="image">
+            <img src="${image.webformatURL}" alt="Tags: ${image.tags}" loading="lazy"/>
+          </div>
+          <div class="info">
+            <p class="info-item">
+              <b>Likes</b>${image.likes}
+            </p>
+            <p class="info-item">
+              <b>Views</b>${image.views}
+            </p>
+            <p class="info-item">
+              <b>Comments</b>${image.comments}
+            </p>
+            <p class="info-item">
+              <b>Downloads</b>${image.downloads}
+            </p>
+          </div>
+        </div>
+      </a>   
 `;
 const generateImages = (array) => array?.reduce((acc, item) => acc + createImages(item), "");
 const insertImages = (array) => {
