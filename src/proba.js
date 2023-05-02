@@ -1,4 +1,4 @@
-import HitsApiService from './serviseApi';
+import { HitsApiService } from './serviseApi';
 import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
@@ -14,7 +14,7 @@ const slider = new SimpleLightbox('.gallery a')
 
 
 
-const serviceApi = new HitsApiService;
+const serviceApi = new HitsApiService();
 let query = '';
 
 const intersectionObserver = new IntersectionObserver(onEndOfScroll);
@@ -92,7 +92,7 @@ const insertImages = (array) => {
 
 function onEndOfScroll(entries) {
     entries.forEach(entry => {
-        if (entry.isIntersecting && query !== '' && query === serviceApi.lastSearch) {
+        if (entry.isIntersecting && query !== '' && query === serviceApi.searchQuery) {
             if (!serviceApi.isEndOfPages) renderPage();
 
             else Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.");
