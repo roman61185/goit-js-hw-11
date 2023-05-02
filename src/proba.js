@@ -3,7 +3,7 @@ import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
-const form = document.querySelector('#search-form');
+const form = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery');
 const button = document.querySelector('.search-form button')
 const delimiter = document.querySelector('.delimiter');
@@ -11,6 +11,7 @@ const spinner = document.querySelector('.spinner');
 
 
 const slider = new SimpleLightbox('.gallery a')
+
 
 
 const serviceApi = new HitsApiService;
@@ -24,9 +25,8 @@ form.addEventListener('submit', onSearch);
 async function onSearch(evt) {
     evt.preventDefault();
     query = form.searchQuery.value.trim();
-    if (query === '' || query === serviceApi.searchQuery) {
-        return;
-    }
+    if (query === '' || query === serviceApi.searchQuery) return;
+
     button.disabled = true;
     clearContainer();
     await renderPage();
@@ -94,6 +94,7 @@ function onEndOfScroll(entries) {
     entries.forEach(entry => {
         if (entry.isIntersecting && query !== '' && query === serviceApi.lastSearch) {
             if (!serviceApi.isEndOfPages) renderPage();
+
             else Notify.warning("We're sorry, but you've reached the end of search results.");
         }
     });

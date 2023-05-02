@@ -8,14 +8,14 @@ export default class HitsApiService {
     constructor() {
         this.searchQuery = '';
         this.per_page = 40;
-        this.page = 1;
+        this.page = 0;
         this.isNewSearch = false;
         this.isEndOfPages = false;
     }
     async getData(query) {
         if (query !== this.searchQuery) {
             this.isNewSearch = true;
-            this.page = 1;
+            this.page += 1;
         } else {
             this.isNewSearch = false;
         }
@@ -32,8 +32,8 @@ export default class HitsApiService {
         })
 
         this.lastSearch = query;
-        this.isEndOfPages = this.perPage * this.currentPage >= response.data.totalHits;
-        this.currentPage += 1;
+        this.isEndOfPages = this.per_page * this.page >= response.data.totalHits;
+        // this.page += 1;
         return response;
     }
 }
