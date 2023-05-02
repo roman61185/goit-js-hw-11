@@ -95,7 +95,7 @@ function onEndOfScroll(entries) {
         if (entry.isIntersecting && query !== '' && query === serviceApi.lastSearch) {
             if (!serviceApi.isEndOfPages) renderPage();
 
-            else Notify.warning("We're sorry, but you've reached the end of search results.");
+            else Notiflix.Notify.warning("We're sorry, but you've reached the end of search results.");
         }
     });
 }
